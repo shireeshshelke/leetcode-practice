@@ -1,0 +1,113 @@
+{
+  "name": "LeetCode Practice",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "21",
+      "installGradle": true,
+      "installMaven": true
+    },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // Java Development
+        "vscjava.extension-pack-for-java",
+        "vscjava.vscode-java-debug",
+        "vscjava.vscode-gradle",
+        "vscjava.vscode-maven",
+        
+        // Python Development
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.debugpy",
+        
+        // Node.js Development
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-next",
+        
+        // General Development Tools
+        "ms-vscode.makefile-tools",
+        "ms-vscode-remote.remote-containers",
+        "ms-vscode.remote-explorer",
+        "eamodio.gitlens",
+        "GitHub.copilot",
+        
+        // Utility Extensions
+        "ms-vscode.hexdump",
+        "ms-vscode-remote.remote-ssh",
+        "ms-vscode.makefile-tools"
+      ],
+      "settings": {
+        // Java settings
+        "java.server.launchMode": "Standard",
+        "java.configuration.updateBuildConfiguration": "automatic",
+        "[java]": {
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "redhat.java"
+        },
+        
+        // Python settings
+        "[python]": {
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "ms-python.python",
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+          }
+        },
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        
+        // Node.js/JavaScript settings
+        "[javascript]": {
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[typescript]": {
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        
+        // General editor settings
+        "editor.formatOnSave": true,
+        "editor.trimTrailingWhitespace": true,
+        "files.trimTrailingWhitespace": true,
+        "editor.rulers": [80, 120],
+        "files.exclude": {
+          "**/.git": true,
+          "**/.DS_Store": true
+        }
+      }
+    }
+  },
+  "remoteUser": "vscode",
+  "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+  "forwardPorts": [8080, 8888, 3000, 5000, 9000],
+  "portsAttributes": {
+    "8080": {
+      "label": "Application",
+      "onAutoForward": "notify"
+    },
+    "8888": {
+      "label": "Jupyter",
+      "onAutoForward": "notify"
+    },
+    "3000": {
+      "label": "Node Dev Server",
+      "onAutoForward": "notify"
+    },
+    "9000": {
+      "label": "Debug Port",
+      "onAutoForward": "notify"
+    }
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.m2,target=/home/vscode/.m2,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.gradle,target=/home/vscode/.gradle,type=bind,consistency=cached"
+  ]
+}
