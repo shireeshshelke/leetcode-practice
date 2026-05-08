@@ -1,0 +1,38 @@
+# name: Build and push devcontainer image
+
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch: {}
+
+# permissions:
+#   contents: read
+#   packages: write
+
+# jobs:
+#   devcontainer-prebuild:
+#     name: Build and push devcontainer image
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+
+#       - name: Detect devcontainer changes
+#         id: detect_changes
+#         uses: tj-actions/changed-files@v34
+#         with:
+#           files: |
+#             .devcontainer/**
+#             .github/workflows/devcontainer-prebuild.yml
+
+#       - name: Build and push devcontainer image to GHCR
+#         if: steps.detect_changes.outputs.any_changed == 'true'
+#         uses: devcontainers/ci@v0.2
+#         with:
+#           imageName: ghcr.io/${{ github.repository_owner }}/leetcode-practice/devcontainer
+#           cacheFrom: ghcr.io/${{ github.repository_owner }}/leetcode-practice/devcontainer
+#           imageTag: latest,${{ github.sha }}
+#           push: filter
+#           refFilterForPush: refs/heads/main
+#           eventFilterForPush: push,workflow_dispatch
